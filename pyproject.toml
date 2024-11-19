@@ -1,0 +1,25 @@
+[project]
+name = "crewai_readme_generator"
+version = "0.1.0"
+description = "A tool to analyze projects using crewAI and create READMEs"
+authors = [
+    { name = "Rafael Calassara", email = "rafaelcalassara@hotmail.com" },
+]
+requires-python = ">=3.10,<=3.13"
+dependencies = [
+    "crewai[tools]>=0.63.6,<1.0.0",
+    "gradio>=5.6,<6.0",
+]
+
+[project.scripts]
+crewai_readme_generator = "crewai_readme_generator.main:run"
+run_crew = "crewai_readme_generator.main:run"
+train = "crewai_readme_generator.main:train"
+replay = "crewai_readme_generator.main:replay"
+test = "crewai_readme_generator.main:test"
+
+[build-system]
+requires = [
+    "hatchling",
+]
+build-backend = "hatchling.build"

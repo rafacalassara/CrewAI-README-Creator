@@ -1,0 +1,55 @@
+folder_analizer_task:
+  description: >
+    Conduct a thorough research in {folder} using the Directory Search Tool 
+    and return a list of the most important files in the directory based on the stack used and the project goal.
+    Dont limit the search to the files in the root folder, search in all subfolders as well.
+    Include all files that are important to the project.
+  expected_output: >
+    A list of the most important files paths in {folder} based on the stack used and the project goal.
+    The files should be sorted by importance, the most important files first.
+
+research_task:
+  description: >
+    Conduct a thorough research in the list of files passed by the folder_analizer_task using the the File Read Tool
+    to understand the content of the files and return a detailed report about it's goal and usage in a user viewpoint.
+    Make sure you find how the program works and what it does in details.
+  expected_output: >
+    A detailed research report of the project, its contents and how the program works and what it does.
+    The research report should have a user view.
+  context: 
+    - folder_analizer_task
+
+readme_planning_task:
+  description: >
+    Plan the structure of the README file based on the research report.
+    The README file should be a user manual for the project.
+  expected_output: >
+    A plan for the README file structure.
+    The plan should be in markdown format.
+    The must have a user viewpoint on how it works, how to setup the project and a brief explanation of the project inner workings.
+    The language used for the README should be {language}
+  context: 
+    - research_task
+    - folder_analizer_task
+
+readme_writing_task:
+  description: >
+    Review the information given by the researcher and the README file plan and create a README file.
+  expected_output: >
+    A README file for the project.
+    The language used for the README should be {language}
+    The README file should be in markdown format.
+    Don't include ´´´.
+  context: 
+    - research_task
+    - readme_planning_task
+
+readme_review_task:
+  description: >
+    Review the generated README file to ensure it has the correct structure and is complete, without missing parts.
+  expected_output: >
+    A reviewed README file with suggestions for improvements if necessary.
+    If the README is complete and correct, just return it without markdown ´´´.
+    If the README is not complete or correct, say what is missing or incorrect, how to fix it and delegate the task to the readme_writer.
+  context: 
+    - readme_writing_task
